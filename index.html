@@ -4,6 +4,7 @@
     <title>Postar no Instagram</title>
   </head>
   <body>
+    <h1>Teste</h1>
     <input type="file" id="file-input">
     <button id="story-button">Postar nos Stories</button>
     <button id="feed-button">Postar no Feed</button>
@@ -20,8 +21,14 @@
 
       feedButton.addEventListener('click', () => {
         const image = fileInput.files[0];
-        window.open(`instagram://library?AssetPath=${image}&InstagramCaption=Minha%20nova%20foto`);
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const base64Image = event.target.result.split(',')[1];
+          window.open(`instagram://library?AssetPath=${base64Image}&InstagramCaption=Minha%20nova%20foto`);
+        };
+        reader.readAsDataURL(image);
       });
     </script>
   </body>
 </html>
+
