@@ -16,7 +16,7 @@
 
       storyButton.addEventListener('click', () => {
         const image = fileInput.files[0];
-        window.open(`instagram://story-camera?openExternalUrl=true`);
+        window.open(`https://www.instagram.com/stories/....`, '_blank');
       });
 
       feedButton.addEventListener('click', () => {
@@ -24,11 +24,10 @@
         const reader = new FileReader();
         reader.onload = function(event) {
           const base64Image = event.target.result.split(',')[1];
-          window.open(`instagram://library?AssetPath=${base64Image}&InstagramCaption=Minha%20nova%20foto`);
+          window.open(`https://www.instagram.com/create/campaign/...`, '_blank');
         };
         reader.readAsDataURL(image);
       });
     </script>
   </body>
 </html>
-
