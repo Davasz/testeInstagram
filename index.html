@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Postar no Instagram</title>
+  </head>
+  <body>
+    <input type="file" id="file-input">
+    <button id="story-button">Postar nos Stories</button>
+    <button id="feed-button">Postar no Feed</button>
+
+    <script>
+      const storyButton = document.getElementById('story-button');
+      const feedButton = document.getElementById('feed-button');
+      const fileInput = document.getElementById('file-input');
+
+      storyButton.addEventListener('click', () => {
+        const image = fileInput.files[0];
+        window.open(`instagram://story-camera?openExternalUrl=true`);
+      });
+
+      feedButton.addEventListener('click', () => {
+        const image = fileInput.files[0];
+        window.open(`instagram://library?AssetPath=${image}&InstagramCaption=Minha%20nova%20foto`);
+      });
+    </script>
+  </body>
+</html>
