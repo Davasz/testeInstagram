@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Postar no Instagram</title>
+    <title>Compartilhar no Instagram</title>
   </head>
   <body>
-    <h1>Teste</h1>
-    <input type="file" id="file-input">
-    <button id="story-button">Postar nos Stories</button>
-    <button id="feed-button">Postar no Feed</button>
+    <h1>Compartilhar no Instagram</h1>
+    <input type="file" accept="image/*" capture="camera" id="file-input">
+    <button id="share-button">Compartilhar no Instagram</button>
 
     <script>
-      const storyButton = document.getElementById('story-button');
-      const feedButton = document.getElementById('feed-button');
+      const shareButton = document.getElementById('share-button');
       const fileInput = document.getElementById('file-input');
 
-      storyButton.addEventListener('click', () => {
+      shareButton.addEventListener('click', () => {
         const image = fileInput.files[0];
-        window.open(`instagram://library?AssetPath=https://s2.glbimg.com/1o2J-rf2G9qtlQlm82gaq-mFBec=/0x129:1024x952/924x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2023/7/i/ME2AxRRoygUyFPCDe0jQ/3.png`, '_blank');
-      });
-
-      feedButton.addEventListener('click', () => {
-        const image = fileInput.files[0];
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          const base64Image = event.target.result.split(',')[1];
-          window.open(`https://www.instagram.com/create/campaign/...`, '_blank');
-        };
-        reader.readAsDataURL(image);
+        const formData = new FormData();
+        formData.append('file', image);
+        fetch('https://mywebsite.com/instagram.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+          if (data === 'success') {
+            window.location.href = 'instagram://';
+          } else {
+            alert('Erro ao compartilhar no Instagram');
+          }
+        })
+        .catch(error => {
+          alert('Erro ao compartilhar no Instagram');
+        });
       });
     </script>
   </body>
