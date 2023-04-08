@@ -1,36 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Compartilhar no Instagram</title>
+    <title>Postar no Instagram</title>
   </head>
   <body>
-    <h1>Compartilhar no Instagram</h1>
-    <input type="file" accept="image/*" capture="camera" id="file-input">
-    <button id="share-button">Compartilhar no Instagram</button>
+    <h1>Teste</h1>
+    <input type="file" id="file-input">
+    <button id="post-button">Postar</button>
 
     <script>
-      const shareButton = document.getElementById('share-button');
+      const postButton = document.getElementById('post-button');
       const fileInput = document.getElementById('file-input');
 
-      shareButton.addEventListener('click', () => {
+      postButton.addEventListener('click', () => {
         const image = fileInput.files[0];
-        const formData = new FormData();
-        formData.append('file', image);
-        fetch('https://mywebsite.com/instagram.php', {
-          method: 'POST',
-          body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-          if (data === 'success') {
-            window.location.href = 'instagram://';
-          } else {
-            alert('Erro ao compartilhar no Instagram');
-          }
-        })
-        .catch(error => {
-          alert('Erro ao compartilhar no Instagram');
-        });
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const base64Image = event.target.result.split(',')[1];
+          const caption = 'Legenda da postagem';
+          const url = `https://www.instagram.com/create/post/?caption=${encodeURIComponent(caption)}&upload_id=${base64Image}`;
+          window.open(url, '_blank');
+        };
+        reader.readAsDataURL(image);
       });
     </script>
   </body>
